@@ -5,6 +5,7 @@ import { AuthContext } from "../contexts/UserContext";
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
   console.log("context", user);
+
   const handleSignOut = () => {
     logOut()
       .then(() => {})
@@ -26,9 +27,13 @@ const Header = () => {
         Register
       </Link>
       {user?.email && <span>Welcome,{user.email}</span>}
-      <button onClick={handleSignOut} className="btn btn-sm">
-        Log Out
-      </button>
+      {user?.email ? (
+        <button onClick={handleSignOut} className="btn btn-sm">
+          Log Out
+        </button>
+      ) : (
+        <Link to="/login">Login</Link>
+      )}
     </div>
   );
 };
